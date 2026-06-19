@@ -1,4 +1,4 @@
-# AutomataLab: Full-Stack Chomsky Hiyerarşisi Simülatörü 🚀
+# AutomataLab: Full-Stack Chomsky Hiyerarşisi Simülatörü 
 
 AutomataLab, teorik bilgisayar bilimlerinin anayasası kabul edilen **Chomsky Hiyerarşisi'ndeki** dört ana otomat tipini (DFA, PDA, LBA, Turing Machine) simüle eden bütünleşik bir mühendislik aracıdır. Proje; matematiksel soyutlamalardan (Tuple'lar) başlayıp, Nesne Yönelimli Programlama (OOP) ile kurulan motor katmanından (Backend) geçerek modern ve asenkron bir Grafiksel Kullanıcı Arayüzüne (GUI) uzanan süreci kusursuz bir mimariyle birleştirir.
 
