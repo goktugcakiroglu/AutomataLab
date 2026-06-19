@@ -1,8 +1,8 @@
-# AutomataLab: Full-Stack Chomsky Hiyerarşisi Simülatörü 
+# AutomataLab: Chomsky Hierarchy Simulator
 
-AutomataLab, teorik bilgisayar bilimlerinin anayasası kabul edilen **Chomsky Hiyerarşisi'ndeki** dört ana otomat tipini (DFA, PDA, LBA, Turing Machine) simüle eden bütünleşik bir mühendislik aracıdır. Proje; matematiksel soyutlamalardan (Tuple'lar) başlayıp, Nesne Yönelimli Programlama (OOP) ile kurulan motor katmanından (Backend) geçerek modern ve asenkron bir Grafiksel Kullanıcı Arayüzüne (GUI) uzanan süreci kusursuz bir mimariyle birleştirir.
+AutomataLab, teorik bilgisayar biliminin temelini oluşturan **Chomsky Hiyerarşisi'ndeki** dört ana otomat tipini (DFA, PDA, LBA, Turing Machine) simüle eden bütünleşik bir yazılım mühendisliği aracıdır. Proje; formal matematiksel soyutlamalardan (Tuple tanımlamaları) başlayıp, Nesne Yönelimli Programlama (OOP) prensipleriyle kurulan motor katmanından (Backend Engine) geçerek modern ve asenkron bir Grafiksel Kullanıcı Arayüzüne (GUI) uzanan süreci modüler bir mimariyle birleştirir.
 
-**Not:** Bu proje basit `if-else` bloklarına gömülmüş (hardcoded) bir ödev betiği değildir. **MVC (Model-View-Controller)** mimarisiyle ve **Config-Driven (Yapılandırma Odaklı)** bir yaklaşımla tasarlanmış; kuralların JSON'dan dinamik okunduğu, arayüzün motor mantığından tamamen izole edildiği bir "Sistem Simülasyon" ekosistemidir.
+**Tasarım Mimarisi:** Proje, **MVC (Model-View-Controller)** mimari deseni ve **Config-Driven (Yapılandırma Odaklı)** bir yaklaşım esas alınarak geliştirilmiştir. Otomat kurallarının JSON dosyalarından dinamik olarak okunduğu ve kullanıcı arayüzü bileşenlerinin çekirdek motor mantığından tamamen izole edildiği, genişletilebilir bir simülasyon platformudur.
 
 ## Requirements
 
@@ -10,7 +10,6 @@ Projeyi derlemek ve çalıştırmak için aşağıdaki ortam gereksinimlerine ih
 * **Operating System:** Windows / Linux / macOS (Çapraz Platform Uyumlu)
 * **Backend Environment:** Python 3.x
 * **Frontend UI Library:** `customtkinter` (Modern, donanım ivmeli GUI motoru)
-
 ## Build & Run
 
 1. Proje dizinine gidin:
