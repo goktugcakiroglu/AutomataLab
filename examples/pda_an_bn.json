@@ -1,0 +1,28 @@
+{
+    "name": "a^n b^n PDA",
+    "states": ["q0", "q1", "q2"],
+    "input_alphabet": ["a", "b"],
+    "stack_alphabet": ["A", "Z"],
+    "initial_state": "q0",
+    "initial_stack_symbol": "Z",
+    "accept_states": ["q2"],
+    "transitions": {
+        "q0": {
+            "a": {
+                "Z": ["q0", ["A", "Z"]],
+                "A": ["q0", ["A", "A"]]
+            },
+            "b": {
+                "A": ["q1", ["epsilon"]]
+            }
+        },
+        "q1": {
+            "b": {
+                "A": ["q1", ["epsilon"]]
+            },
+            "epsilon": {
+                "Z": ["q2", ["Z"]]
+            }
+        }
+    }
+}

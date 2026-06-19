@@ -1,0 +1,38 @@
+{
+    "name": "a^n b^n c^n LBA",
+    "states": ["q0", "q1", "q2", "q3", "q4", "q_accept", "q_reject"],
+    "input_alphabet": ["a", "b", "c"],
+    "tape_alphabet": ["a", "b", "c", "X", "Y", "Z", "_"],
+    "initial_state": "q0",
+    "accept_states": ["q_accept"],
+    "reject_states": ["q_reject"],
+    "blank_symbol": "_",
+    "transitions": {
+        "q0": {
+            "a": ["q1", "X", "R"],
+            "Y": ["q4", "Y", "R"]
+        },
+        "q1": {
+            "a": ["q1", "a", "R"],
+            "Y": ["q1", "Y", "R"],
+            "b": ["q2", "Y", "R"]
+        },
+        "q2": {
+            "b": ["q2", "b", "R"],
+            "Z": ["q2", "Z", "R"],
+            "c": ["q3", "Z", "L"]
+        },
+        "q3": {
+            "a": ["q3", "a", "L"],
+            "b": ["q3", "b", "L"],
+            "Y": ["q3", "Y", "L"],
+            "Z": ["q3", "Z", "L"],
+            "X": ["q0", "X", "R"]
+        },
+        "q4": {
+            "Y": ["q4", "Y", "R"],
+            "Z": ["q4", "Z", "R"],
+            "_": ["q_accept", "_", "S"]
+        }
+    }
+}

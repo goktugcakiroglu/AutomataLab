@@ -1,0 +1,53 @@
+{
+    "name": "Katar Kopyalama Makinesi (w -> ww)",
+    "description": "Şeritteki a ve b'lerden oluşan stringi okur, sonuna kopyasını yazar.",
+    "states": [
+        "q0", "q_read_a", "q_read_b", "q_write_a", "q_write_b", 
+        "q_return", "q_clean", "q_accept", "q_reject"
+    ],
+    "input_alphabet": ["a", "b"],
+    "tape_alphabet": ["a", "b", "X", "Y", "_"],
+    "initial_state": "q0",
+    "accept_states": ["q_accept"],
+    "reject_states": ["q_reject"],
+    "blank_symbol": "_",
+    "transitions": {
+        "q0": {
+            "a": ["q_read_a", "X", "R"],
+            "b": ["q_read_b", "Y", "R"],
+            "_": ["q_clean", "_", "L"]
+        },
+        "q_read_a": {
+            "a": ["q_read_a", "a", "R"],
+            "b": ["q_read_a", "b", "R"],
+            "_": ["q_write_a", "_", "R"]
+        },
+        "q_write_a": {
+            "a": ["q_write_a", "a", "R"],
+            "b": ["q_write_a", "b", "R"],
+            "_": ["q_return", "a", "L"]
+        },
+        "q_read_b": {
+            "a": ["q_read_b", "a", "R"],
+            "b": ["q_read_b", "b", "R"],
+            "_": ["q_write_b", "_", "R"]
+        },
+        "q_write_b": {
+            "a": ["q_write_b", "a", "R"],
+            "b": ["q_write_b", "b", "R"],
+            "_": ["q_return", "b", "L"]
+        },
+        "q_return": {
+            "a": ["q_return", "a", "L"],
+            "b": ["q_return", "b", "L"],
+            "_": ["q_return", "_", "L"],
+            "X": ["q0", "X", "R"],
+            "Y": ["q0", "Y", "R"]
+        },
+        "q_clean": {
+            "X": ["q_clean", "a", "L"],
+            "Y": ["q_clean", "b", "L"],
+            "_": ["q_accept", "_", "R"]
+        }
+    }
+}
