@@ -1,8 +1,47 @@
-# AutomataLab: Chomsky Hierarchy Simulator
+[![AutomataLab Engine CI](https://github.com/goktugcakiroglu/AutomataLab/actions/workflows/python-ci.yml/badge.svg)](https://github.com/goktugcakiroglu/AutomataLab/actions/workflows/python-ci.yml)
 
 AutomataLab, teorik bilgisayar biliminin temelini oluşturan **Chomsky Hiyerarşisi'ndeki** dört ana otomat tipini (DFA, PDA, LBA, Turing Machine) simüle eden bütünleşik bir yazılım mühendisliği aracıdır. Proje; formal matematiksel soyutlamalardan (Tuple tanımlamaları) başlayıp, Nesne Yönelimli Programlama (OOP) prensipleriyle kurulan motor katmanından (Backend Engine) geçerek modern ve asenkron bir Grafiksel Kullanıcı Arayüzüne (GUI) uzanan süreci modüler bir mimariyle birleştirir.
 
-**Tasarım Mimarisi:** Proje, **MVC (Model-View-Controller)** mimari deseni ve **Config-Driven (Yapılandırma Odaklı)** bir yaklaşım esas alınarak geliştirilmiştir. Otomat kurallarının JSON dosyalarından dinamik olarak okunduğu ve kullanıcı arayüzü bileşenlerinin çekirdek motor mantığından tamamen izole edildiği, genişletilebilir bir simülasyon platformudur.
+## Tasarım Mimarisi (Config-Driven MVC)
+
+Proje, kuralların JSON'dan dinamik okunduğu ve GUI'nin asenkron çalıştığı sıkı bir mimariye sahiptir:
+
+```mermaid
+graph LR
+    subgraph Configuration
+        JSON[examples/*.json <br> State & Transition Rules]
+    end
+
+    subgraph Core Engine [Backend - Python OOP]
+        Base[src/core/machine.py <br> Abstract Base]
+        Engines[dfa_engine.py <br> pda_engine.py <br> turing_machine.py]
+        Base <|-- Engines
+    end
+
+    subgraph UI [Frontend - CustomTkinter]
+        GUI[gui.py <br> Asynchronous Event Loop]
+    end
+
+    JSON -->|1. Loads Config| Engines
+    GUI -->|2. Injects Input String| Engines
+    Engines -->|3. Yields Real-Time State| GUI
+```
+
+## Type-3 (DFA) Örnek Durum Geçiş Diyagramı
+Aşağıdaki şema, sistemde yüklü olan "Sonu 'ab' ile biten katarları kabul eden" DFA'nın donanımsal mantığını (dfa_ends_with_ab.json) temsil eder:
+
+```
+stateDiagram-v2
+    direction LR
+    [*] --> q0 : Başlangıç
+    q0 --> q1 : a
+    q0 --> q0 : b
+    q1 --> q1 : a
+    q1 --> q2 : b
+    q2 --> q1 : a
+    q2 --> q0 : b
+    q2 --> [*] : Kabul (Accept)
+```
 
 ## Requirements
 
@@ -14,6 +53,7 @@ Projeyi derlemek ve çalıştırmak için aşağıdaki ortam gereksinimlerine ih
 
 1. Proje dizinine gidin:
 ```bash
+git clone [https://github.com/goktugcakiroglu/AutomataLab.git](https://github.com/goktugcakiroglu/AutomataLab.git)
 cd AutomataLab
 ```
 2. Gerekli arayüz kütüphanesini sisteme kurun:
@@ -59,12 +99,15 @@ Sistem, çalışma anında makinenin çökmesini engelleyen ve otomata teorisine
 
 ```text
 AutomataLab/
+├── .github/workflows/python-ci.yml # Otomatik Motor Testleri (Pytest)
 ├── gui.py                 # Frontend: CustomTkinter tabanlı asenkron Dark Mode arayüz
 ├── examples/              # Configuration: JSON tabanlı kural setleri
 │   ├── dfa_ends_with_ab.json
 │   ├── pda_an_bn.json
 │   ├── lba_an_bn_cn.json
 │   └── copy_string_tm.json
+├── tests/
+|   └── test_automata.py   # Unit Testler (DFA, PDA, LBA, TM)
 ├── src/               
 │   ├── core/
 │   │   └── machine.py     # Base Model: Tüm otomatların miras aldığı soyut ana sınıf
