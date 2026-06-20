@@ -15,7 +15,7 @@ graph LR
     subgraph Core Engine [Backend - Python OOP]
         Base[src/core/machine.py <br> Abstract Base]
         Engines[dfa_engine.py <br> pda_engine.py <br> turing_machine.py]
-        Base <|-- Engines
+        Engines -.->|Extends| Base
     end
 
     subgraph UI [Frontend - CustomTkinter]
