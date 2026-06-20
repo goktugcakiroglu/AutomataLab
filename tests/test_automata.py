@@ -15,23 +15,23 @@ def test_dfa_ends_with_ab():
     cfg = load_cfg("dfa_ends_with_ab.json")
     dfa = DFA(cfg["states"], cfg["input_alphabet"], cfg["transitions"], cfg["initial_state"], cfg["accept_states"])
     
-    # Kabul Durumu Testi
+    # Kabul Durumu Testi: Hem accept state'te olmalı hem de kelime bitmiş olmalı
     dfa.run("bbab")
-    assert dfa.current_state in dfa.accept_states
+    assert dfa.current_state in dfa.accept_states and dfa.head_position >= len(dfa.tape)
     
     # Ret Durumu Testi
     dfa.run("bba")
-    assert dfa.current_state not in dfa.accept_states
+    assert not (dfa.current_state in dfa.accept_states and dfa.head_position >= len(dfa.tape))
 
 def test_pda_an_bn():
     cfg = load_cfg("pda_an_bn.json")
     pda = PDA(cfg["states"], cfg["input_alphabet"], cfg["stack_alphabet"], cfg["transitions"], cfg["initial_state"], cfg["initial_stack_symbol"], cfg["accept_states"])
     
     pda.run("aaabbb")
-    assert pda.current_state in pda.accept_states
+    assert pda.current_state in pda.accept_states and pda.head_position >= len(pda.tape)
 
-    pda.run("aabbb") # Hatalı katar
-    assert pda.current_state not in pda.accept_states
+    pda.run("aabbb") # Hatalı katar (Kabul edilmemeli)
+    assert not (pda.current_state in pda.accept_states and pda.head_position >= len(pda.tape))
 
 def test_lba_an_bn_cn():
     cfg = load_cfg("lba_an_bn_cn.json")
